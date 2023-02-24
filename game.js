@@ -1,8 +1,11 @@
 var dice_points = document.getElementsByClassName("dice-point")
 var dice_rows = document.getElementsByClassName("dice-row")
-var status = document.getElementById("status")
+var status_prompt = document.getElementById("status")
+var status_wrapper = document.getElementById("status-wrapper")
+var emoji = document.getElementById("emoji")
 var dice = document.getElementsByClassName("dice")
 var score1 , score2
+
 
 //Dice styling
 function hidePoints(point_indexes){
@@ -49,6 +52,20 @@ function styleDice(player_no , dice_value){
         case 5:
             collapsePoints([point_offset + 2])        
    }
+
+}
+
+
+function declareGameResult(){
+    if(score1 > score2){
+        status_prompt.innerHTML = "Player 1 wins!!!"
+        status_wrapper.style.flexDirection = "row-reverse";
+    }else if(score2 > score1){
+        status_prompt.innerHTML = "Player 2 wins!!!"
+    }else{
+        status_prompt.innerHTML = "Draw!"
+        emoji.style.visibility = "hidden"
+    }
 }
 
 
@@ -65,4 +82,6 @@ console.log(score1+" "+score2)
 
 styleDice(0,score1)
 styleDice(1,score2)
+
+declareGameResult()
 
