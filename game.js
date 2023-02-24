@@ -1,16 +1,8 @@
 var dice_points = document.getElementsByClassName("dice-point")
 var dice_rows = document.getElementsByClassName("dice-row")
 var status = document.getElementById("status")
-
-var dice1 =  {
-    element: document.getElementById("dice1"),
-    value: undefined
-}
-
-var dice2 = {
-    element: document.getElementById("dice2"),
-    value: undefined
-}
+var dice = document.getElementsByClassName("dice")
+var score1 , score2
 
 //Dice styling
 function hidePoints(point_indexes){
@@ -33,19 +25,44 @@ function collapseRows(row_indexes){
         dice_rows[row_indexes[i]].style.display = "none"
 }
 
-function styleDice(){
-   hidePoints([0,5])
-   collapsePoints([2])
+function styleDice(player_no , dice_value){
+
+   var point_offset = (player_no == 0)?0:6 
+   var row_offset = (player_no == 0)?0:3
+
+   switch(dice_value){
+        case 1:
+            collapsePoints([point_offset+2])
+            hideRows([row_offset+0 , row_offset+2])
+            break;
+        case 2:
+            hidePoints([point_offset+0 , point_offset+5])
+            hideRows([row_offset+1])
+            break;
+        case 3:
+            hidePoints([point_offset+0 , point_offset+5])
+            collapsePoints([point_offset + 2])
+            break;
+        case 4:
+            hideRows([row_offset + 1])
+            break;
+        case 5:
+            collapsePoints([point_offset + 2])        
+   }
 }
 
 
 
 //Game Functionality
 function getDiceValue(){
-    return Math.random() * 6 + 1;
+    return Math.floor(Math.random() * 6 + 1)
 }
 
-dice1.value = getDiceValue()
-dice2.value = getDiceValue()
+score1 = getDiceValue()
+score2 = getDiceValue()
 
-styleDice()
+console.log(score1+" "+score2)
+
+styleDice(0,score1)
+styleDice(1,score2)
+
